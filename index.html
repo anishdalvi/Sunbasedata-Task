@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Management</title>
+</head>
+
+<body>
+
+    <h1>Customer Management</h1>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+        <label for="loginId">Login ID:</label>
+        <input type="text" id="loginId" required>
+        <label for="password">Password:</label>
+        <input type="text" id="password" required>
+        <button type="button" onclick="authenticateUser()">Login</button>
+    </form>
+
+    <!-- Customer List -->
+    <h2>Customer List</h2>
+    <table id="customerTable" border="1">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street</th>
+                <th>Address</th>
+                <th>City</th>
+                <th>State</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="customerListBody"></tbody>
+    </table>
+
+    <!-- Create Customer Form -->
+    <h2>Create New Customer</h2>
+    <form id="createCustomerForm">
+        <!-- Include necessary input fields -->
+        <button type="button" onclick="createCustomer()">Create Customer</button>
+    </form>
+
+    <!-- Update Customer Form -->
+    <h2>Update Customer</h2>
+    <form id="updateCustomerForm">
+        <!-- Include necessary input fields -->
+        <button type="button" onclick="updateCustomer()">Update Customer</button>
+    </form>
+
+    <!-- Delete Customer Form -->
+    <h2>Delete Customer</h2>
+    <form id="deleteCustomerForm">
+        <label for="deleteCustomerId">Customer UUID:</label>
+        <input type="text" id="deleteCustomerId" required>
+        <button type="button" onclick="deleteCustomer()">Delete Customer</button>
+    </form>
+
+    <script>
+        // Replace the API URLs with the actual URLs
+        const baseApiUrl = 'https://qa2.sunbasedata.com/sunbase/portal/api/';
+        const authApiUrl = baseApiUrl + 'assignment_auth.jsp';
+        const customerApiUrl = baseApiUrl + 'assignment.jsp';
+
+        let authToken = '';
+
+        // Function to handle authentication
+        function authenticateUser() {
+            const loginId = document.getElementById('loginId').value;
+            const password = document.getElementById('password').value;
+
+            fetch(authApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    login_id: loginId,
+                    password: password,
+                }),
+            })
+                .then(response => {
+                    console.log(response.status);
+                    if (!response.ok) {
+                        throw new Error('Authentication failed');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log(data);
+                    authToken = data.token;
+                    alert('Authentication successful');
+                    // Call function to load customer list after successful authentication
+                    loadCustomerList();
+                })
+                .catch(error => {
+                    alert('Authentication failed. Check login credentials.');
+                    console.error('Authentication error:', error);
+                });
+        }
+
+        // Function to load customer list
+        function loadCustomerList() {
+            fetch(customerApiUrl + '?cmd=get_customer_list', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + authToken,
+                },
+            })
+                .then(response => response.json())
+                .then(data => {
+                    displayCustomerList(data);
+                })
+                .catch(error => {
+                    alert('Error loading customer list.');
+                    console.error('Error loading customer list:', error);
+                });
+        }
+
+        // Function to display customer list in a table
+        function displayCustomerList(customerList) {
+            const tableBody = document.getElementById('customerListBody');
+            tableBody.innerHTML = ''; // Clear previous data
+
+            customerList.forEach(customer => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+          <td>${customer.first_name}</td>
+          <td>${customer.last_name}</td>
+          <td>${customer.street}</td>
+          <td>${customer.address}</td>
+          <td>${customer.city}</td>
+          <td>${customer.state}</td>
+          <td>${customer.email}</td>
+          <td>${customer.phone}</td>
+          <td>
+            <button onclick="editCustomer('${customer.uuid}')">Edit</button>
+            <button onclick="deleteCustomer('${customer.uuid}')">Delete</button>
+          </td>
+        `;
+            });
+        }
+
+        // Function to create a new customer
+        function createCustomer() {
+            // Get values from form inputs
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            // ... include other fields
+
+            // Check if mandatory fields are present
+            if (!firstName || !lastName) {
+                alert('First Name and Last Name are mandatory.');
+                return;
+            }
+
+            fetch(customerApiUrl + '?cmd=create', {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + authToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    // ... include other fields
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Customer created successfully');
+                        // Reload customer list after successful creation
+                        loadCustomerList();
+                    } else {
+                        throw new Error('Customer creation failed');
+                    }
+                })
+                .catch(error => {
+                    alert('Error creating customer.');
+                    console.error('Error creating customer:', error);
+                });
+        }
+
+        // Function to update an existing customer
+        function updateCustomer() {
+            // Get values from form inputs
+            const uuid = document.getElementById('updateCustomerId').value;
+            const firstName = document.getElementById('updateFirstName').value;
+            const lastName = document.getElementById('updateLastName').value;
+            // ... include other fields
+
+            // Check if mandatory fields are present
+            if (!uuid || !firstName || !lastName) {
+                alert('UUID, First Name, and Last Name are mandatory.');
+                return;
+            }
+
+            fetch(customerApiUrl + '?cmd=update&uuid=' + uuid, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + authToken,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    first_name: firstName,
+                    last_name: lastName,
+                    // ... include other fields
+                }),
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Customer updated successfully');
+                        // Reload customer list after successful update
+                        loadCustomerList();
+                    } else {
+                        throw new Error('Customer update failed');
+                    }
+                })
+                .catch(error => {
+                    alert('Error updating customer.');
+                    console.error('Error updating customer:', error);
+                });
+        }
+
+        // Function to delete an existing customer
+        function deleteCustomer(uuid) {
+            fetch(customerApiUrl + '?cmd=delete&uuid=' + uuid, {
+                method: 'POST',
+                headers: {
+                    'Authorization': 'Bearer ' + authToken,
+                },
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Customer deleted successfully');
+                        // Reload customer list after successful deletion
+                        loadCustomerList();
+                    } else {
+                        throw new Error('Customer deletion failed');
+                    }
+                })
+                .catch(error => {
+                    alert('Error deleting customer.');
+                    console.error('Error deleting customer:', error);
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>
