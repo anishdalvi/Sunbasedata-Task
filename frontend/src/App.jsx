@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import './App.css'
+import CustomerManagement from './components/CustomerManagement'
 
 function App() {
   
 
   return (
-    <>
-      <h1>Start</h1>
+    <div className='w-[90%] mx-auto'>
+      <h1 className='text-2xl'> Start </h1>      
+      <CustomerManagement />
       
-    </>
+    </div>
   )
 }
 
