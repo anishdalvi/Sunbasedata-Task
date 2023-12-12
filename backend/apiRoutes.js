@@ -1,7 +1,9 @@
 // backend/apiRoutes.js
-const express = require("express");
-const router = express.Router();
-const fetch = require("node-fetch");
+import express from "express";
+import { Router } from "express";
+import fetch from 'node-fetch';
+
+const router = Router();
 
 const baseApiUrl = "https://qa2.sunbasedata.com/sunbase/portal/api/";
 const authApiUrl = baseApiUrl + "assignment_auth.jsp";
@@ -25,4 +27,4 @@ router.post("/authenticate", async (req, res) => {
 
 // Add other API routes (create, get_customer_list, delete, update) similarly
 
-module.exports = router;
+export default router;

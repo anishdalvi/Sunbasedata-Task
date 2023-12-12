@@ -1,7 +1,7 @@
 // backend/server.js
-const express = require("express");
-const cors = require("cors");
-const apiRoutes = require("./apiRoutes");
+import express from "express";
+import cors from "cors";
+import apiRoutes from "./apiRoutes.js";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
