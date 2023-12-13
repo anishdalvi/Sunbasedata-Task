@@ -1,5 +1,3 @@
-// backend/apiRoutes.js
-import express from "express";
 import { Router } from "express";
 import fetch from "node-fetch";
 
@@ -19,7 +17,7 @@ router.post("/authenticate", async (req, res) => {
     });
 
     const data = await response.json();
-   // console.log(data);
+    // console.log(data);
 
     res.status(response.status).json(data);
   } catch (error) {
@@ -111,51 +109,6 @@ router.get("/get_customer_list", async (req, res) => {
   }
 });
 
-// Delete a customer
-router.post("/delete", async (req, res) => {
-  try {
-    const deleteCustomerUrl =
-      baseApiUrl + `assignment.jsp?cmd=delete&uuid=${req.body.uuid}`;
-
-    const response = await fetch(deleteCustomerUrl, {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + req.headers.authorization,
-      },
-    });
-
-    // Check if the response status is OK
-    if (response.ok) {
-      // Check the Content-Type header
-      const contentType = response.headers.get('content-type');
-      //console.log(contentType);
-
-      if (contentType && contentType.includes('application/json')) {
-        // If the response is JSON, parse it
-        try {
-          const data = await response.json();
-          res.status(response.status).json(data);
-        } catch (jsonError) {
-          console.error("Error parsing JSON:", jsonError);
-          res.status(500).json({ error: "Error parsing JSON from external API" });
-        }
-      } else {
-        // If the response is not JSON, handle it accordingly
-        const textData = await response.text();
-        res.status(response.status).json({ message: textData.trim() });
-      }
-    } else {
-      // If the response status is not OK, send an error response
-      console.error("External API error:", response.status);
-      res.status(response.status).json({ error: "Error from external API" });
-    }
-  } catch (error) {
-    console.error("Delete customer error:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-
 
 // Update a customer
 router.post("/update", async (req, res) => {
@@ -217,5 +170,50 @@ router.post("/update", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
+// Delete a customer
+router.post("/delete", async (req, res) => {
+  try {
+    const deleteCustomerUrl =
+      baseApiUrl + `assignment.jsp?cmd=delete&uuid=${req.body.uuid}`;
+
+    const response = await fetch(deleteCustomerUrl, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + req.headers.authorization,
+      },
+    });
+
+    // Check if the response status is OK
+    if (response.ok) {
+      // Check the Content-Type header
+      const contentType = response.headers.get('content-type');
+      //console.log(contentType);
+
+      if (contentType && contentType.includes('application/json')) {
+        // If the response is JSON, parse it
+        try {
+          const data = await response.json();
+          res.status(response.status).json(data);
+        } catch (jsonError) {
+          console.error("Error parsing JSON:", jsonError);
+          res.status(500).json({ error: "Error parsing JSON from external API" });
+        }
+      } else {
+        // If the response is not JSON, handle it accordingly
+        const textData = await response.text();
+        res.status(response.status).json({ message: textData.trim() });
+      }
+    } else {
+      // If the response status is not OK, send an error response
+      console.error("External API error:", response.status);
+      res.status(response.status).json({ error: "Error from external API" });
+    }
+  } catch (error) {
+    console.error("Delete customer error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 export default router;

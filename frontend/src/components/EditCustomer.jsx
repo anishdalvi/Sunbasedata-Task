@@ -21,14 +21,12 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                     },
                 }
             );
-            //console.log(response.data);
-            // Trigger the onEdit callback with the updated customer data
+
             onEdit(response.data);
             // Close the edit modal
             setShowModal(false);
         } catch (error) {
             console.error('Error updating customer:', error);
-            // Handle error
         }
     };
 

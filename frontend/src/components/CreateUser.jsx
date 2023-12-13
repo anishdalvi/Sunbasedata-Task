@@ -4,8 +4,6 @@ import axios from 'axios';
 
 const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
 
-    //const [showModal, setShowModal] = useState(false);
-
     const [userDetails, setUserDetails] = useState({
         first_name: '',
         last_name: '',
@@ -28,7 +26,6 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                     Authorization: `Bearer ${authToken}`,
                 },
             });
-            //console.log(response.data);
 
             // Trigger a callback to reload the customer list or perform other actions
             onCreateUser();
@@ -48,8 +45,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
             setShowModal(false);
         } catch (error) {
             console.error('Create user error:', error);
-            // Handle error
-        }
+          }
     };
 
     return (
