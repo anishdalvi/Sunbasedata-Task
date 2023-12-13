@@ -11,7 +11,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div className='mb-20'>
       {!authToken ? <Login onLogin={handleLogin} /> : <CustomerManagement authToken={authToken} />}
     </div>
   );

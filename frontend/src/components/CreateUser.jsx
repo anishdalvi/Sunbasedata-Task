@@ -84,7 +84,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="first_name"
                                                     value={userDetails.first_name}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                             <div className='w-1/2'>
@@ -94,7 +94,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="last_name"
                                                     value={userDetails.last_name}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="email"
                                                     value={userDetails.email}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                             <div className='w-1/2'>
@@ -117,7 +117,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="phone"
                                                     value={userDetails.phone}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                         </div>
@@ -130,7 +130,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="street"
                                                     value={userDetails.street}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                             <div className='w-1/2'>
@@ -140,7 +140,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="address"
                                                     value={userDetails.address}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="city"
                                                     value={userDetails.city}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                             <div className='w-1/2'>
@@ -163,7 +163,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                     name="state"
                                                     value={userDetails.state}
                                                     onChange={handleInputChange}
-                                                    className="border-2 rounded px-4 py-1 w-full"
+                                                    className="border-2 rounded px-2 py-1 w-full"
                                                 />
                                             </div>
                                         </div>

@@ -62,7 +62,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="first_name"
                                                 value={editedCustomer.first_name}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                         <div className='w-1/2'>
@@ -72,7 +72,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="last_name"
                                                 value={editedCustomer.last_name}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="email"
                                                 value={editedCustomer.email}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                         <div className='w-1/2'>
@@ -95,7 +95,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="phone"
                                                 value={editedCustomer.phone}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="street"
                                                 value={editedCustomer.street}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                         <div className='w-1/2'>
@@ -118,7 +118,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="address"
                                                 value={editedCustomer.address}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                     </div>
@@ -131,7 +131,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="city"
                                                 value={editedCustomer.city}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                         <div className='w-1/2'>
@@ -141,7 +141,7 @@ const EditCustomer = ({ customer, authToken, onClose, onEdit, showModal, setShow
                                                 name="state"
                                                 value={editedCustomer.state}
                                                 onChange={handleInputChange}
-                                                className="border-2 rounded px-4 py-1 w-full"
+                                                className="border-2 rounded px-2 py-1 w-full"
                                             />
                                         </div>
                                     </div>

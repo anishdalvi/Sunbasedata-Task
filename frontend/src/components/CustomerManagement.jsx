@@ -63,7 +63,7 @@ const CustomerManagement = ({ authToken }) => {
                     },
                 }
             );
-            console.log(response.data);
+            //console.log(response.data);
             // Reload customer list after successful deletion
             loadCustomerList();
         } catch (error) {
@@ -87,7 +87,7 @@ const CustomerManagement = ({ authToken }) => {
             <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
 
             <div className='text-right'>
-                <button onClick={handleCreateUser} className='px-3 py-1 mt-10 text-sm text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
+                <button onClick={handleCreateUser} className='px-3 py-2 mt-10 text-sm uppercase text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
             </div>
 
             {creatingUser && (
@@ -103,35 +103,36 @@ const CustomerManagement = ({ authToken }) => {
                 />
             )}
 
-            <table className='table-auto w-full mt-7 text-left'>
+            <table className='table-auto w-full mt-7 text-left border-2'>
                 {/* Display customer list in a table */}
                 <thead>
-                    <tr>
+                    <tr className='bg-red-300  border-2'>
                         <th>First Name </th>
                         <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
                         <th>Street</th>
                         <th>Address</th>
                         <th>City</th>
                         <th>State</th>
-                        <th>Email</th>
-                        <th>Phone</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {/* Added slice method as people were adding many letters first name */}
                     {customerList.map((customer) => (
-                        <tr key={customer.uuid}>
-                            <td>{customer.first_name}</td>
+                        <tr key={customer.uuid} className='border-b border-2'>
+                            <td>{customer.first_name.slice(0,10)}</td>
                             <td>{customer.last_name}</td>
+                            <td>{customer.email}</td>
+                            <td>{customer.phone}</td>
                             <td>{customer.street}</td>
                             <td>{customer.address}</td>
                             <td>{customer.city}</td>
                             <td>{customer.state}</td>
-                            <td>{customer.email}</td>
-                            <td>{customer.phone}</td>
-                            <td className='flex gap-4'>
-                                <button onClick={() => handleEditCustomer(customer)}>Edit</button>
-                                <button onClick={() => handleDeleteCustomer(customer.uuid)}>Delete</button>
+                            <td className='flex flex-row gap-4'>
+                                <button onClick={() => handleEditCustomer(customer)}> <span className='bg-slate-600 hover:bg-slate-900 px-2 py-1 rounded-md text-white'>Edit</span> </button>
+                                <button onClick={() => handleDeleteCustomer(customer.uuid)}> <span className='bg-red-700 hover:bg-red-900 px-2 py-1 rounded-md text-white'>Delete</span> </button>
                             </td>
                         </tr>
                     ))}
@@ -144,7 +145,7 @@ const CustomerManagement = ({ authToken }) => {
                     authToken={authToken}
                     onClose={() => {
                         handleCloseEdit();
-                        setShowModal(false);
+                        setShowEditModal(false);
                     }}
                     onEdit={handleUpdateCustomer}
                     showModal={showEditModal}
