@@ -1,10 +1,10 @@
-// frontend/src/components/CreateUser.jsx
 import React, { useState } from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
-const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
+const CreateCustomer = ({ authToken, onCreateCustomer, showModal, setShowModal }) => {
 
-    const [userDetails, setUserDetails] = useState({
+    const [customerDetails, setCustomerDetails] = useState({
         first_name: '',
         last_name: '',
         street: '',
@@ -16,22 +16,22 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
     });
 
     const handleInputChange = (e) => {
-        setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
+        setCustomerDetails({ ...customerDetails, [e.target.name]: e.target.value });
     };
 
     const handleSaveChanges = async () => {
         try {
-            const response = await axios.post('api/create', userDetails, {
+            const response = await axios.post('api/create', customerDetails, {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                 },
             });
 
             // Trigger a callback to reload the customer list or perform other actions
-            onCreateUser();
+            onCreateCustomer();
 
             // Clear the form fields after successful creation
-            setUserDetails({
+            setCustomerDetails({
                 first_name: '',
                 last_name: '',
                 street: '',
@@ -43,6 +43,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
             });
             // Close the modal after creating the user
             setShowModal(false);
+            toast.success('Customer Created successfully', { autoClose: 1000, });
         } catch (error) {
             console.error('Create user error:', error);
           }
@@ -78,7 +79,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="first_name"
-                                                    value={userDetails.first_name}
+                                                    value={customerDetails.first_name}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -88,7 +89,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="last_name"
-                                                    value={userDetails.last_name}
+                                                    value={customerDetails.last_name}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -101,7 +102,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="email"
                                                     name="email"
-                                                    value={userDetails.email}
+                                                    value={customerDetails.email}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -111,7 +112,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="phone"
-                                                    value={userDetails.phone}
+                                                    value={customerDetails.phone}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -124,7 +125,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="street"
-                                                    value={userDetails.street}
+                                                    value={customerDetails.street}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -134,7 +135,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="address"
-                                                    value={userDetails.address}
+                                                    value={customerDetails.address}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -147,7 +148,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="city"
-                                                    value={userDetails.city}
+                                                    value={customerDetails.city}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -157,7 +158,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 <input
                                                     type="text"
                                                     name="state"
-                                                    value={userDetails.state}
+                                                    value={customerDetails.state}
                                                     onChange={handleInputChange}
                                                     className="border-2 rounded px-2 py-1 w-full"
                                                 />
@@ -189,4 +190,4 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
     );
 };
 
-export default CreateUser;
+export default CreateCustomer;
