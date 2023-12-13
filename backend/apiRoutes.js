@@ -129,7 +129,7 @@ router.post("/delete", async (req, res) => {
       } else {
         // If the response is not JSON, handle it accordingly
         const textData = await response.text();
-        res.status(response.status).json({ message: textData });
+        res.status(response.status).json({ message: textData.trim() });
       }
     } else {
       // If the response status is not OK, send an error response
