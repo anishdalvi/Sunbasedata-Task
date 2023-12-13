@@ -79,9 +79,12 @@ const CustomerManagement = ({ authToken, setAuthToken }) => {
     };
 
     return (
-        <div className='w-[90%] mx-auto relative'>
-            <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
-            <button onClick={handleLogout} className='px-3 py-1 text-sm uppercase text-white font-semibold bg-black hover:bg-slate-600 rounded-xl'>logout</button>
+        <div className='w-[90%] mx-auto relative mt-10'>
+            <div className="flex justify-between items-center">
+                <span className='w-[150px]'>  </span>
+                <h1 className='text-3xl font-bold'>Customer Management</h1>
+                <button onClick={handleLogout} className='px-3 py-1 text-sm uppercase text-white font-semibold bg-black hover:bg-slate-600 rounded-xl'>logout</button>
+            </div>
             <div className='text-right'>
                 <button onClick={handleCreateCustomer} className='px-3 py-2 mt-10 text-sm uppercase text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
             </div>
