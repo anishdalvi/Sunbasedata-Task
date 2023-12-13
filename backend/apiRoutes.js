@@ -188,8 +188,17 @@ router.post("/update", async (req, res) => {
       }),
     });
 
-    const data = await response.json();
-    res.status(response.status).json(data);
+    // Check if the response content type is JSON
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.includes("application/json")) {
+      // Parse JSON response for successful cases
+      const data = await response.json();
+      res.status(response.status).json(data);
+    } else {
+      // For non-JSON responses, send a success message
+      const successMessage = await response.text();
+      res.status(response.status).json({ message: successMessage });
+    }
   } catch (error) {
     console.error("Update customer error:", error);
     res.status(500).json({ error: "Internal Server Error" });

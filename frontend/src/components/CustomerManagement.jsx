@@ -1,9 +1,12 @@
 // frontend/src/components/CustomerManagement.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import EditCustomer from './EditCustomer';
+
 
 const CustomerManagement = ({ authToken }) => {
     const [customerList, setCustomerList] = useState([]);
+    const [editingCustomer, setEditingCustomer] = useState(null);
 
     useEffect(() => {
         // Fetch customer list when the component mounts
@@ -20,13 +23,26 @@ const CustomerManagement = ({ authToken }) => {
             setCustomerList(response.data);
         } catch (error) {
             console.error('Error loading customer list:', error);
-            // Handle error
         }
     };
 
-    const handleEditCustomer = (uuid) => {
-        // Implement the logic for editing a customer
-        console.log(`Edit customer with UUID: ${uuid}`);
+    const handleEditCustomer = (customer) => {
+        setEditingCustomer(customer);
+    };
+
+    const handleCloseEdit = () => {
+        setEditingCustomer(null);
+    };
+
+    const handleUpdateCustomer = (updatedCustomer) => {
+        // Find the index of the updated customer in the list
+        const index = customerList.findIndex((c) => c.uuid === updatedCustomer.uuid);
+        // Create a new array with the updated customer
+        const updatedList = [...customerList];
+        updatedList[index] = updatedCustomer;
+        // Update the state with the new list
+        setCustomerList(updatedList);
+        loadCustomerList();
     };
 
     const handleDeleteCustomer = async (uuid) => {
@@ -79,13 +95,22 @@ const CustomerManagement = ({ authToken }) => {
                             <td>{customer.email}</td>
                             <td>{customer.phone}</td>
                             <td className='flex gap-4'>
-                                <button onClick={() => handleEditCustomer(customer.uuid)}>Edit</button>
+                                <button onClick={() => handleEditCustomer(customer)}>Edit</button>
                                 <button onClick={() => handleDeleteCustomer(customer.uuid)}>Delete</button>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+            {editingCustomer && (
+                <EditCustomer
+                    customer={editingCustomer}
+                    authToken={authToken}
+                    onClose={handleCloseEdit}
+                    onEdit={handleUpdateCustomer}
+                />
+            )}
         </div>
     );
 };
