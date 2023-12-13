@@ -78,7 +78,7 @@ router.post("/create", async (req, res) => {
     } else if (response.ok) {
       // For non-JSON responses, send a success message
       const successMessage = await response.text();
-      res.status(response.status).json({ message: successMessage });
+      res.status(response.status).json({ message: successMessage.trim() });
     } else {
       // If the response status is not OK, send an error response
       console.error("External API error:", response.status);
@@ -210,7 +210,7 @@ router.post("/update", async (req, res) => {
     } else {
       // For non-JSON responses, send a success message
       const successMessage = await response.text();
-      res.status(response.status).json({ message: successMessage });
+      res.status(response.status).json({ message: successMessage.trim() });
     }
   } catch (error) {
     console.error("Update customer error:", error);

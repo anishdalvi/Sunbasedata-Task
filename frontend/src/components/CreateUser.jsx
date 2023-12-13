@@ -21,14 +21,14 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
         setUserDetails({ ...userDetails, [e.target.name]: e.target.value });
     };
 
-    const handleCreateUser = async () => {
+    const handleSaveChanges = async () => {
         try {
             const response = await axios.post('api/create', userDetails, {
                 headers: {
                     Authorization: `Bearer ${authToken}`,
                 },
             });
-            console.log(response.data);
+            //console.log(response.data);
 
             // Trigger a callback to reload the customer list or perform other actions
             onCreateUser();
@@ -44,6 +44,8 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                 email: '',
                 phone: '',
             });
+            // Close the modal after creating the user
+            setShowModal(false);
         } catch (error) {
             console.error('Create user error:', error);
             // Handle error
@@ -54,29 +56,26 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
         <>
             {showModal ? (
                 <>
-                    <div
+                    <form
                         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                     >
                         <div className="relative w-auto my-6 mx-auto max-w-3xl">
-                            {/*content*/}
                             <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                                {/*header*/}
-                                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                                    <h3 className="text-3xl font-semibold">
-                                        Modal Title
+                                <div className="flex items-start justify-between p-4 border-b border-solid border-blueGray-200 rounded-t">
+                                    <h3 className="text-2xl font-semibold ml-2">
+                                        Create User
                                     </h3>
                                     <button
-                                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                        className="bg-transparent border-0 text-black opacity-60 font-semibold text-xl flex items-center pr-2"
                                         onClick={() => setShowModal(false)}
-                                    >
-                                        <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                                            Close 2
-                                        </span>
+                                    > 
+                                        
+                                            <span> x </span>
+                                       
                                     </button>
                                 </div>
                                 {/*body*/}
                                 <div className="relative p-6 flex-auto">
-                                    <form className="mt-4 w-[80%]">
                                         <div className="mb-4 w-full flex justify-between gap-10">
                                             <div className='w-1/2'>
                                                 <label className="block text-gray-700 text-sm font-bold mb-2">First Name</label>
@@ -146,7 +145,7 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                             </div>
                                         </div>
 
-                                        <div className="mb-4 w-full flex justify-between gap-10">
+                                        <div className="mb-2 w-full flex justify-between gap-10">
                                             <div className='w-1/2'>
                                                 <label className="block text-gray-700 text-sm font-bold mb-2">City</label>
                                                 <input
@@ -168,37 +167,25 @@ const CreateUser = ({ authToken, onCreateUser, showModal, setShowModal }) => {
                                                 />
                                             </div>
                                         </div>
-
-                                        <button type="button" onClick={handleCreateUser} className="bg-blue-500 text-white px-4 py-2 mt-4">
-                                            Create User
-                                        </button>
-                                    </form>
                                 </div>
-                                {/*footer*/}
+                                {/* modal footer*/}
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                                     <button
-                                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                                        className="text-white bg-red-500 hover:bg-red-600 font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-2 ease-linear transition-all duration-150 rounded-lg"
                                         type="button"
                                         onClick={() => setShowModal(false)}
                                     >
                                         Close
                                     </button>
-                                    <button
-                                        className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                        type="button"
-                                        onClick={() => setShowModal(false)}
-                                    >
+                                    <button type="button" onClick={handleSaveChanges} className="text-white bg-emerald-500 hover:bg-emerald-700  font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none ease-linear transition-all duration-150 rounded-lg">
                                         Save Changes
                                     </button>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
+                    {/* Overlay */}
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
-                    <div>
-                        <h2 className="text-2xl font-bold mt-6">Create User</h2>
-                        
-                    </div>
                 </>
             ) : null}
             
