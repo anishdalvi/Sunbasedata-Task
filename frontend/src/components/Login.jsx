@@ -33,7 +33,7 @@ const Login = ({ onLogin }) => {
                         type="text"
                         placeholder="Enter your email"
                         name="email"
-                        className="block border-2 py-1 w-full"
+                        className="block border-2 py-1 w-full px-2"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
@@ -41,7 +41,7 @@ const Login = ({ onLogin }) => {
                         type="password"
                         placeholder="Enter Password"
                         name="password"
-                        className="block border-2 mt-2 py-1 w-full"
+                        className="block border-2 mt-2 py-1 w-full px-2"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                     />
