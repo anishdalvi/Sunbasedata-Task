@@ -24,14 +24,39 @@ const CustomerManagement = ({ authToken }) => {
         }
     };
 
+    const handleEditCustomer = (uuid) => {
+        // Implement the logic for editing a customer
+        console.log(`Edit customer with UUID: ${uuid}`);
+    };
+
+    const handleDeleteCustomer = async (uuid) => {
+        try {
+            const response = await axios.post(
+                'api/delete',
+                { uuid },
+                {
+                    headers: {
+                        Authorization: `Bearer ${authToken}`,
+                    },
+                }
+            );
+            console.log(response.data);
+            // Reload customer list after successful deletion
+            loadCustomerList();
+        } catch (error) {
+            console.error('Error deleting customer:', error);
+            // Handle error
+        }
+    };
+
     return (
-        <div>
-            <h1>Customer Management</h1>
-            <table>
+        <div className='w-full'>
+            <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
+            <table className='table-auto w-[90%] mx-auto mt-7 text-left'>
                 {/* Display customer list in a table */}
                 <thead>
                     <tr>
-                        <th>First Name</th>
+                        <th>First Name </th>
                         <th>Last Name</th>
                         <th>Street</th>
                         <th>Address</th>
@@ -53,9 +78,9 @@ const CustomerManagement = ({ authToken }) => {
                             <td>{customer.state}</td>
                             <td>{customer.email}</td>
                             <td>{customer.phone}</td>
-                            <td>
-                                <button>Edit</button>
-                                <button>Delete</button>
+                            <td className='flex gap-4'>
+                                <button onClick={() => handleEditCustomer(customer.uuid)}>Edit</button>
+                                <button onClick={() => handleDeleteCustomer(customer.uuid)}>Delete</button>
                             </td>
                         </tr>
                     ))}
