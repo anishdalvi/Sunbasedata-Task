@@ -1,4 +1,3 @@
-// CustomerManagement.js
 import React, { useState, useEffect } from 'react';
 
 const CustomerManagement = ({ authToken }) => {
@@ -11,11 +10,11 @@ const CustomerManagement = ({ authToken }) => {
 
         // Fetch customer list
         fetchCustomerList();
-    }, []);
+    }, [authToken]); // Update when authToken changes
 
     const fetchUserDetails = async () => {
         try {
-            const response = await fetch('http://localhost:3000/api/authenticate', {
+            const response = await fetch('api/authenticate', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
