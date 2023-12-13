@@ -17,13 +17,17 @@ router.post("/authenticate", async (req, res) => {
       },
       body: JSON.stringify(req.body),
     });
+
     const data = await response.json();
+    console.log(data);
+
     res.status(response.status).json(data);
   } catch (error) {
     console.error("Authentication error:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 
 // Add other API routes (create, get_customer_list, delete, update) similarly
 
