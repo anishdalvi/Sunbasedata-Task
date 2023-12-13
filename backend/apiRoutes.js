@@ -19,7 +19,7 @@ router.post("/authenticate", async (req, res) => {
     });
 
     const data = await response.json();
-    console.log(data);
+   // console.log(data);
 
     res.status(response.status).json(data);
   } catch (error) {
@@ -115,7 +115,7 @@ router.post("/delete", async (req, res) => {
     if (response.ok) {
       // Check the Content-Type header
       const contentType = response.headers.get('content-type');
-      console.log(contentType);
+      //console.log(contentType);
 
       if (contentType && contentType.includes('application/json')) {
         // If the response is JSON, parse it
