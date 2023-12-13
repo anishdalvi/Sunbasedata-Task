@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditCustomer from './EditCustomer';
 import CreateUser from './CreateUser'; // Import the CreateUser component
+import Modal from './Modal';
+
 
 const CustomerManagement = ({ authToken }) => {
     const [customerList, setCustomerList] = useState([]);
@@ -78,6 +80,7 @@ const CustomerManagement = ({ authToken }) => {
     return (
         <div className='w-[90%] mx-auto'>
             <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
+            <Modal />
 
             <div className='text-right'>
                 <button onClick={handleCreateUser} className='px-3 py-1 mt-10 text-sm text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
