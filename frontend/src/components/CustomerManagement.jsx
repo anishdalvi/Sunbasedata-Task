@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditCustomer from './EditCustomer';
-
+import CreateUser from './CreateUser'; // Import the CreateUser component
 
 const CustomerManagement = ({ authToken }) => {
     const [customerList, setCustomerList] = useState([]);
     const [editingCustomer, setEditingCustomer] = useState(null);
+    const [creatingUser, setCreatingUser] = useState(false); // Track whether to show the CreateUser form
 
     useEffect(() => {
         // Fetch customer list when the component mounts
@@ -43,6 +44,7 @@ const CustomerManagement = ({ authToken }) => {
         // Update the state with the new list
         setCustomerList(updatedList);
         loadCustomerList();
+        setEditingCustomer(null); // Close the edit form
     };
 
     const handleDeleteCustomer = async (uuid) => {
@@ -65,10 +67,27 @@ const CustomerManagement = ({ authToken }) => {
         }
     };
 
+    const handleCreateUser = () => {
+        setCreatingUser(true);
+    };
+
+    const handleCloseCreateUser = () => {
+        setCreatingUser(false);
+    };
+
     return (
-        <div className='w-full'>
+        <div className='w-[90%] mx-auto'>
             <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
-            <table className='table-auto w-[90%] mx-auto mt-7 text-left'>
+
+            <div className='text-right'>
+                <button onClick={handleCreateUser} className='px-3 py-1 mt-10 text-sm text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
+            </div>
+
+            {creatingUser && (
+                <CreateUser authToken={authToken} onCreateUser={() => { loadCustomerList(); setCreatingUser(false); }} />
+            )}
+
+            <table className='table-auto w-full mt-7 text-left'>
                 {/* Display customer list in a table */}
                 <thead>
                     <tr>
