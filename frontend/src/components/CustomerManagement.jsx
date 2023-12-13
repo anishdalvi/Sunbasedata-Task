@@ -10,6 +10,7 @@ const CustomerManagement = ({ authToken }) => {
     const [customerList, setCustomerList] = useState([]);
     const [editingCustomer, setEditingCustomer] = useState(null);
     const [creatingUser, setCreatingUser] = useState(false); // Track whether to show the CreateUser form
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         // Fetch customer list when the component mounts
@@ -71,23 +72,33 @@ const CustomerManagement = ({ authToken }) => {
 
     const handleCreateUser = () => {
         setCreatingUser(true);
+        setShowModal(true);
     };
 
     const handleCloseCreateUser = () => {
         setCreatingUser(false);
+        setShowModal(false);
     };
 
     return (
         <div className='w-[90%] mx-auto'>
             <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
-            <Modal />
-
+            
             <div className='text-right'>
                 <button onClick={handleCreateUser} className='px-3 py-1 mt-10 text-sm text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
             </div>
 
             {creatingUser && (
-                <CreateUser authToken={authToken} onCreateUser={() => { loadCustomerList(); setCreatingUser(false); }} />
+                <CreateUser
+                    authToken={authToken}
+                    onCreateUser={() => {
+                        loadCustomerList();
+                        setCreatingUser(false);
+                        setShowModal(false);
+                    }}
+                    showModal={showModal}
+                    setShowModal={setShowModal}
+                />
             )}
 
             <table className='table-auto w-full mt-7 text-left'>
