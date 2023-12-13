@@ -2,15 +2,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditCustomer from './EditCustomer';
-import CreateUser from './CreateUser'; // Import the CreateUser component
-import Modal from './Modal';
+import CreateUser from './CreateUser'; 
+
 
 
 const CustomerManagement = ({ authToken }) => {
     const [customerList, setCustomerList] = useState([]);
     const [editingCustomer, setEditingCustomer] = useState(null);
     const [creatingUser, setCreatingUser] = useState(false); // Track whether to show the CreateUser form
-    const [showModal, setShowModal] = useState(false);
+    const [showCreateModal, setShowCreateModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
 
     useEffect(() => {
         // Fetch customer list when the component mounts
@@ -32,6 +33,7 @@ const CustomerManagement = ({ authToken }) => {
 
     const handleEditCustomer = (customer) => {
         setEditingCustomer(customer);
+        setShowEditModal(true);
     };
 
     const handleCloseEdit = () => {
@@ -72,18 +74,18 @@ const CustomerManagement = ({ authToken }) => {
 
     const handleCreateUser = () => {
         setCreatingUser(true);
-        setShowModal(true);
+        setShowCreateModal(true);
     };
 
     const handleCloseCreateUser = () => {
         setCreatingUser(false);
-        setShowModal(false);
+        setShowCreateModal(false);
     };
 
     return (
         <div className='w-[90%] mx-auto'>
             <h1 className='mt-6 text-center text-3xl font-bold'>Customer Management</h1>
-            
+
             <div className='text-right'>
                 <button onClick={handleCreateUser} className='px-3 py-1 mt-10 text-sm text-white font-semibold bg-blue-500 hover:bg-blue-800 rounded-lg'>Add Customer</button>
             </div>
@@ -94,10 +96,10 @@ const CustomerManagement = ({ authToken }) => {
                     onCreateUser={() => {
                         loadCustomerList();
                         setCreatingUser(false);
-                        setShowModal(false);
+                        setShowCreateModal(false);
                     }}
-                    showModal={showModal}
-                    setShowModal={setShowModal}
+                    showModal={showCreateModal}
+                    setShowModal={setShowCreateModal}
                 />
             )}
 
@@ -140,8 +142,13 @@ const CustomerManagement = ({ authToken }) => {
                 <EditCustomer
                     customer={editingCustomer}
                     authToken={authToken}
-                    onClose={handleCloseEdit}
+                    onClose={() => {
+                        handleCloseEdit();
+                        setShowModal(false);
+                    }}
                     onEdit={handleUpdateCustomer}
+                    showModal={showEditModal}
+                    setShowModal={setShowEditModal}
                 />
             )}
         </div>
