@@ -50,27 +50,33 @@ const CreateUser = ({ authToken, onCreateUser }) => {
     return (
         <div>
             <h2 className="text-2xl font-bold mt-6">Create User</h2>
-            <form className="mt-4">
-                <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">First Name</label>
-                    <input
-                        type="text"
-                        name="first_name"
-                        value={userDetails.first_name}
-                        onChange={handleInputChange}
-                        className="border-2 rounded px-4 py-2 w-full"
-                    />
+            <form className="mt-4 w-[80%]">
+                <div className="mb-4 w-full flex justify-between">
+                    <div className='flex gap-10 items-center'>
+                        <label className=" text-gray-700 text-base font-bold mb-2">First Name</label>
+                        <input
+                            type="text"
+                            name="first_name"
+                            value={userDetails.first_name}
+                            onChange={handleInputChange}
+                            className="border-2 rounded px-4 py-2 w-[200px]"
+                        />
+                   </div>
+
+                    <div>
+                        <label className="text-gray-700 text-sm font-bold mb-2">Last Name</label>
+                        <input
+                            type="text"
+                            name="last_name"
+                            value={userDetails.last_name}
+                            onChange={handleInputChange}
+                            className="border-2 rounded px-4 py-2"
+                        />
+                    </div>
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-700 text-sm font-bold mb-2">Last Name</label>
-                    <input
-                        type="text"
-                        name="last_name"
-                        value={userDetails.last_name}
-                        onChange={handleInputChange}
-                        className="border-2 rounded px-4 py-2 w-full"
-                    />
+                    
                 </div>
 
                 <div className="mb-4">
