@@ -2,7 +2,7 @@
 
 This is the **Customer Management** Web App developed using React+Vite JS (frontend) and Node Js + Express (Backend)
 
-### Deployed On Render: [View Demo](https://sunbasedata-task.onrender.com/)
+**Deployed On Render:** ✔️ [View Demo](https://sunbasedata-task.onrender.com/)
 
 ## Demo Images
 
@@ -46,7 +46,7 @@ This is the **Customer Management** Web App developed using React+Vite JS (front
 
 #### To Run from Root Directory
 
-`npm run dev` <br> (concurrently run server and client) <br>
+`npm run dev` (concurrently run server and client) <br>
 
 or <br>
 
@@ -55,29 +55,5 @@ or <br>
 `npm run client`  (only run frontend) <br>
 
 
-#### To Run Backend
-`npm --prefix backend start` (node) 
 
- or <br>
- 
-`npm --prefix backend run server` (with nodemon) 
 
- or <br>
-
-`cd backend` <br>
-
-`npm install` <br>
-
-`npm start`
-
-#### To Run Frontend
-
-`npm --prefix frontend run client` <br>
-
-or
-
-`cd frontend` <br>
-
-`npm install` <br>
-
-`npm run dev`
