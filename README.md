@@ -39,12 +39,7 @@ This is the **Customer Management** Web App developed using React+Vite JS (front
 ![image](https://github.com/anishdalvi/Sunbasedata-Task/assets/70633140/89eeab08-b370-42c0-867c-f4ccd43d2c2e)
 
 
-## Before Running  this application
-
-## To run this application
-
-
-#### To Run from Root Directory
+## To run this application from Root Directory
 
 `npm run dev` (concurrently run server and client) <br>
 
